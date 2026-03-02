@@ -1,0 +1,24 @@
+[package]
+name        = "txtme"
+version     = "0.1.0"
+description = "SMS notification endpoint — other EPS POST here to text you"
+authors     = ["nickagliano"]
+license     = "MIT"
+platform    = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu"]
+
+[eps]
+customization_guide = "CUSTOMIZE.md"
+hooks_dir           = "Scripts/"
+
+[system-dependencies]
+brew = ["rustup"]
+apt  = ["cargo"]
+
+[hooks]
+install = "Scripts/install.sh"
+
+[service]
+enabled      = true
+start        = "HOST=$(tailscale ip -4) ./serve.sh"
+port         = 5543
+health_check = "GET /health"
