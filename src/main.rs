@@ -7,6 +7,7 @@ use axum::{
     routing::{get, post},
     Router,
 };
+use tower_http::trace::TraceLayer;
 use serde::Deserialize;
 use serde_json::{json, Value};
 
@@ -29,6 +30,7 @@ struct NotifyBody {
 
 #[tokio::main]
 async fn main() {
+    tracing_subscriber::fmt::init();
     dotenvy::dotenv().ok();
 
     let provider: Arc<dyn providers::SmsProvider> = Arc::new(
@@ -46,6 +48,7 @@ async fn main() {
     let app = Router::new()
         .route("/health", get(health))
         .route("/notify", post(notify))
+        .layer(TraceLayer::new_for_http())
         .with_state(state);
 
     let host = std::env::var("HOST").unwrap_or_else(|_| "127.0.0.1".into());
