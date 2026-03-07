@@ -1,10 +1,11 @@
 [package]
 name        = "txtme"
-version     = "0.1.0"
+version     = "0.1.1"
 description = "SMS notification endpoint — other EPS POST here to text you"
 authors     = ["nickagliano"]
 license     = "MIT"
 platform    = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu"]
+repository  = "https://github.com/nickagliano/txtme"
 
 [eps]
 customization_guide = "CUSTOMIZE.md"
